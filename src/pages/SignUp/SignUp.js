@@ -14,6 +14,9 @@ const SignUp = () => {
                 const user = res.user;
                 console.log(user);
             })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (
