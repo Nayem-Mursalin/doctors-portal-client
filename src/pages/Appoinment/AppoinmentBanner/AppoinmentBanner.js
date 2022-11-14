@@ -3,8 +3,8 @@ import chair from '../../../assets/images/chair.png';
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
 
-const AppoinmentBanner = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
+const AppoinmentBanner = ({ selectedDate, setSelectedDate }) => {
+
     return (
         <header className='my-6'>
             <div className="hero">
@@ -16,7 +16,6 @@ const AppoinmentBanner = () => {
                             selected={selectedDate}
                             onSelect={setSelectedDate}
                         />
-                        <p>You Have selected Date: {format(selectedDate, 'PP')}</p>
                     </div>
                 </div>
             </div>
