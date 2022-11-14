@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { createUser } = useContext(AuthContext);
 
     const handleSignUp = (data) => {
         console.log(data);
+        createUser(data.email, data.password)
+            .then(res => {
+                const user = res.user;
+                console.log(user);
+            })
     }
 
     return (
@@ -36,12 +43,12 @@ const SignUp = () => {
                         <input type="password" {...register("password", {
                             required: "Password is required",
                             minLength: { value: 6, message: "Password must be 6 character or longer" },
-                            pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: "Password Must be Strong" }
+                            pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: "Password must have uppercase, number and special characters" }
                         })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
-                    <input className='btn btn-accent w-full' value="Sign Up" type="submit" />
+                    <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
                 </form>
                 <p>Already Have an Accout? <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider">OR</div>

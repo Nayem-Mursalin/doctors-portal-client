@@ -33,7 +33,7 @@ const Login = () => {
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                         <label className='label'><span className='label-text'>Forget Password</span></label>
                     </div>
-                    <input className='btn btn-accent w-full' value="Login" type="submit" />
+                    <input className='btn btn-accent w-full mt-4' value="Login" type="submit" />
                 </form>
                 <p>New to Doctors Portal <Link className='text-secondary' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
