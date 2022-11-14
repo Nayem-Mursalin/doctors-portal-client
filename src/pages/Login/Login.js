@@ -17,7 +17,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className='form-control w-full w-max-xs'>
                         <label className='label'><span className='label-text'>Email</span></label>
-                        <input type="text"
+                        <input type="email"
                             {...register("email", { required: "Email is Required" })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.email && <p className='text-red-600' role="alert">{errors.email?.message}</p>}
