@@ -40,13 +40,13 @@ const SignUp = () => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(user)
-                .then(res => res.json())
-                .then(data => {
-                    console.log('saveUser ', data);
-                    navigate('/');
-                })
-
         })
+            .then(res => res.json())
+            .then(data => {
+                console.log('saveUser ', data);
+                navigate('/');
+            })
+
     }
 
     return (
