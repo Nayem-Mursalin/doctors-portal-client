@@ -4,7 +4,7 @@ import { AuthContext } from '../../../../contexts/AuthProvider';
 
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
-    const url = `http://localhost:8000/bookings?emil=${user?.email}`;
+    const url = `http://localhost:8000/bookings?email=${user?.email}`;
 
     const { data: bookings = [] } = useQuery({
         queryKey: ['bookings', user.email],
@@ -21,24 +21,25 @@ const MyAppointment = () => {
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
-                        {
-                            bookings.map((booking, index) => <tr>
-                                <th>{index}</th>
-                                <th>Name</th>
-                                <th>Treatment</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                            </tr>)
-                        }
+                        <tr>
+                            <th></th>
+                            <td>Name</td>
+                            <td>Treatment</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Blue</td>
-                            <td>Blue</td>
-                        </tr>
+                        {
+                            bookings.map((booking, index) => <tr key={booking._id}>
+                                <th>{index + 1}</th>
+                                <th>{booking.patient}</th>
+                                <th>{booking.treatment}</th>
+                                <th>{booking.appointmentDate}</th>
+                                <th>{booking.slot}</th>
+                            </tr>)
+                        }
+
                     </tbody>
                 </table>
             </div>
