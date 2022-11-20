@@ -4,9 +4,14 @@ import { useElements, useStripe, CardElement } from '@stripe/react-stripe-js';
 const Checkoutform = ({ booking }) => {
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState("");
+    const [transactionId, setTransactionId] = useState('');
+    const [processing, setProcessing] = useState(false);
+    const [success, setSuccess] = useState('');
+
     const stripe = useStripe();
     const elements = useElements();
     const { price, email, patient } = booking;
+
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
@@ -46,6 +51,8 @@ const Checkoutform = ({ booking }) => {
             setCardError('');
         }
 
+        setSuccess('');
+        setProcessing(true);
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -58,6 +65,15 @@ const Checkoutform = ({ booking }) => {
                 },
             },
         );
+        if (confirmError) {
+            setCardError(confirmError.message);
+            return;
+        }
+        if (paymentIntent.status === "succeeded") {
+            setSuccess('Congrats! your payment completed');
+            setTransactionId(paymentIntent.id);
+        }
+        setProcessing(false);
     }
 
     return (
@@ -82,11 +98,17 @@ const Checkoutform = ({ booking }) => {
                 <button
                     className='btn btn-sm mt-6 btn-primary'
                     type="submit"
-                    disabled={!stripe || !clientSecret}>
+                    disabled={!stripe || !clientSecret || processing}>
                     Pay
                 </button>
             </form>
             <p className="text-red-500">{cardError}</p>
+            {
+                success && <div>
+                    <p className='text-green-500'>{success}</p>
+                    <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
+                </div>
+            }
         </>
     );
 };
