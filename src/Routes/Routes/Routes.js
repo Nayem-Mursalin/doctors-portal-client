@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <AdminRoute><Payment></Payment></AdminRoute>,
-                loader: ({ params }) => fetch(`http://localhost:8000/bookings/${params.id}`)
+                loader: ({ params }) => fetch(`https://doctors-portal-server-nayem-mursalin.vercel.app/bookings/${params.id}`)
             },
         ]
     }

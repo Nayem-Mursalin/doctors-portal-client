@@ -32,7 +32,7 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
         // and display success toast
 
 
-        fetch('http://localhost:8000/bookings', {
+        fetch('https://doctors-portal-server-nayem-mursalin.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
